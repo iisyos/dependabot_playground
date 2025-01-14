@@ -24,7 +24,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # Dependabotのメタデータチェックはプルリクエストの時のみ実行
       - name: Run Dependabot vulnerability check
         if: github.event_name == 'pull_request'
         uses: dependabot/fetch-metadata@v1.6.0
@@ -34,8 +33,3 @@ jobs:
       - name: Run npm audit
         run: npm audit
         continue-on-error: true
-
-      - name: Submit dependency snapshot
-        uses: advanced-security/maven-dependency-submission-action@v3
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
