@@ -2,6 +2,15 @@ name: Dependabot Security Scan
 
 on:
   push:
+    paths:
+      - 'package.json'
+      - 'package-lock.json'
+      - 'yarn.lock'
+  pull_request:
+    paths:
+      - 'package.json'
+      - 'package-lock.json'
+      - 'yarn.lock'
 
 jobs:
   security:
@@ -19,7 +28,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # Dependabotのメタデータチェックはプルリクエストの時のみ実行
       - name: Run Dependabot vulnerability check
+        if: github.event_name == 'pull_request'
         uses: dependabot/fetch-metadata@v1.6.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
