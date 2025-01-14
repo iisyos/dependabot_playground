@@ -2,10 +2,6 @@ name: Dependabot Security Scan
 
 on:
   push:
-    paths:
-      - 'package.json'
-      - 'package-lock.json'
-      - 'yarn.lock'
   pull_request:
     paths:
       - 'package.json'
